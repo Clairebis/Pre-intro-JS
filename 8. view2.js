@@ -4,7 +4,6 @@ export default class View {
 
     const increaseButton = document.getElementById("increaseBtn");
     const decreaseButton = document.getElementById("decreaseBtn");
-    const count_display = document.getElementById("count_display");
 
     self.presenter = presenter;
 
