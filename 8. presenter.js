@@ -3,7 +3,7 @@ export default class Presenter {
     this.model = model;
     this.view = view;
 
-    this.view.setFavColor(this.model.getFavColor());
+    this.view.setFavColor(this.model.getFavColor()); // initialize the color picker input to show the current color
   }
 
   // activated when save is pressed - saves the new color information (it got from the view) and stores it in the model. Also gives feedback to the user via the view

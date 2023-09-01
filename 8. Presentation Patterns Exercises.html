@@ -7,17 +7,16 @@
   </head>
   <body>
     <div id="app_container">
-      <button>Increase Count by 1</button>
-      <button>Decrease Count by 1</button>
+      <button id="increaseBtn">Increase Count by 1</button>
+      <button id="decreaseBtn">Decrease Count by 1</button>
     </div>
 
     <div id="count_display"></div>
 
-    <script type="model">
-      import Model from './8. model2.js';
-      import Presenter from './8. presenter2.js';
-      import View from './8. view2.js';
-
+    <script type="module">
+      import Model from "./8. model2.js";
+      import Presenter from "./8. presenter2.js";
+      import View from "./8. view2.js";
 
       const model = new Model(0);
       const presenter = new Presenter();
