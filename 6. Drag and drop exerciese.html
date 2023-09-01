@@ -1,0 +1,181 @@
+<!--
+        KNOWLEDGE
+1. What must be present as the minimum to create a drag and drop feature using HTML and
+JavaScript?
+In HTML we need 
+i. an element that can be dragged and 
+ii. an element that is set as a drop target element.
+In JS, we need event handlers to manage the interactions:
+i. dragstart - triggered when user starts dragging a dragable element. We can set the data in the dataTransfer object using the setData() method.
+ii. dragover - we need this to prevent default behaviour to allow a drop. It's triggered when a draggable element is dragged over a drop target,  and
+iii. drop - this is triggered when a draggable element is dropped on a drop target. We get the data in the dataTransfer object using the getData() method.
+
+2. Which HTML elements are draggable per default?
+Images <img> elements, links <a> elements, and text (when highlighted) - includes paragraphs, headers and other text containing elements 
+(e.g. spans, divs, list items).
+
+3. If the HTML element in question is not draggable, what are required of you to do, to make it
+draggable?
+You would need to add code to overwrite the default and make it draggable. preventDefault()
+You would need to add the 'draggable' attribute and relevant event handlers (mentioned in 1.).
+
+e.g.
+
+a. Add the draggable Attribute:
+You need to add the draggable attribute to the HTML element you want to make draggable. 
+Set the value of the draggable attribute to "true" to enable dragging for the element.
+
+<div id="customDraggable" draggable="true">Drag me!</div>
+b. Add Event Handlers:
+To provide functionality during the drag-and-drop process, you'll need to add event handlers to respond to the relevant events. 
+The key events you might want to handle are:
+
+i. dragstart: This event is triggered when the user starts dragging the element. 
+You can use this event to set data in the dataTransfer object to be carried along during the drag.
+
+const customDraggableElement = document.getElementById('customDraggable');
+customDraggableElement.addEventListener('dragstart', (event) => {
+    event.dataTransfer.setData('text/plain', 'Custom draggable data');
+});
+
+ii. dragover: This event is triggered when the draggable element is dragged over a drop target. 
+You'll need to prevent the default behavior to allow the drop.
+
+const dropTarget = document.getElementById('dropTarget');
+dropTarget.addEventListener('dragover', (event) => {
+    event.preventDefault();
+});
+
+iii. drop: This event is triggered when the draggable element is dropped onto a drop target.
+Here you can access the dragged data and perform any necessary actions.
+
+dropTarget.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const droppedData = event.dataTransfer.getData('text/plain');
+    // Do something with the dropped data
+});
+By adding the draggable attribute and event handlers, you can override the default behavior and make an HTML 
+element draggable, even if it's not draggable by default. 
+Remember that browser support might vary, so you should test your implementation in different browsers to ensure compatibility.
+
+
+4. In a drag and drop solution, what role has the drop target and how do you turn an element
+into a drop target?
+
+The drop target is the area where you want to drop your draggable element. 
+You turn an element into a drop target by preventing default behaviour.
+e.g. 
+box.ondragover = function(event) {
+event.preventDefault();
+}
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag and drop exercises</title>
+    <style>
+      .drop {
+        width: 220px;
+        height: 220px;
+        border: 2px solid black;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div>
+        <img src="circle.png" alt="circle" id="drag1" class="draggable" />
+      </div>
+      <div>
+        <img src="circle.png" alt="circle" id="drag2" class="draggable" />
+      </div>
+      <div>
+        <img src="circle.png" alt="circle" id="drag3" class="draggable" />
+      </div>
+      <div>
+        <img src="circle.png" alt="circle" id="drag4" class="draggable" />
+      </div>
+      <div id="drop1" class="drop"></div>
+      <div id="drop2" class="drop"></div>
+    </div>
+
+    <script>
+      //simple try
+      /*const dropzone1 = document.getElementById("drop1");
+      const dropzone2 = document.getElementById("drop2");
+
+      const image1 = document.getElementById("drag1");
+      const image2 = document.getElementById("drag2");
+      const image3 = document.getElementById("drag3");
+      const image4 = document.getElementById("drag4");
+
+      //Turn the boxes into drop targets
+      dropzone1.ondragover = function (event) {
+        event.preventDefault();
+      };
+
+      dropzone2.ondragover = function (event) {
+        event.preventDefault();
+      };
+
+      //When user starts dragging the element, the ID of the image is attached to it as "data".
+      //attach additional info to the element being dragged. Here we set it to the element ID.
+      image1.ondragstart = function (event) {
+        event.dataTransfer.setData("text", event.target.id);
+      };
+
+      image2.ondragstart = function (event) {
+        event.dataTransfer.setData("text", event.target.id);
+      };
+
+      image3.ondragstart = function (event) {
+        event.dataTransfer.setData("text", event.target.id);
+      };
+
+      image4.ondragstart = function (event) {
+        event.dataTransfer.setData("text", event.target.id);
+      };
+
+      //When the image is dropped, it's ID is read as data, and the image element is added to the drop target element as a child element.
+      dropzone1.ondrop = function (event) {
+        event.preventDefault();
+        const element = event.dataTransfer.getData("text");
+        event.target.appendChild(document.getElementById(element));
+      };
+
+      dropzone2.ondrop = function (event) {
+        event.preventDefault();
+        const element = event.dataTransfer.getData("text");
+        event.target.appendChild(document.getElementById(element));
+      };*/
+
+      //attempt with loops
+      const draggableElements = document.querySelectorAll(".draggable");
+      const dropZones = document.querySelectorAll(".drop");
+
+      draggableElements.forEach((element) => {
+        element.addEventListener("dragstart", (event) => {
+          event.dataTransfer.setData("text", event.target.id);
+        });
+      });
+
+      dropZones.forEach((zone) => {
+        zone.addEventListener("dragover", (event) => {
+          event.preventDefault();
+        });
+
+        zone.addEventListener("drop", (event) => {
+          event.preventDefault();
+          const elementId = event.dataTransfer.getData("text");
+          const draggedElement = document.querySelector(`#${elementId}`);
+          zone.appendChild(draggedElement);
+        });
+      });
+    </script>
+  </body>
+</html>

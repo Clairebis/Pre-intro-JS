@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MVP demo video (Model-View-Presenter)</title>
+  </head>
+  <body>
+    <form>
+      <label>Your favourite colour <input type="color" id="favcolor" /></label>
+      <div id="output"></div>
+      <button type="button" id="saveBtn">Save colour</button>
+      <button type="button" id="resetBtn">Reset to default</button>
+    </form>
+
+    <script type="module">
+      import Model from "./8. model.js";
+      import Presenter from "./8. presenter.js";
+      import View from "./8. view.js";
+      const model = new Model("#000000"); /*Default colour on startup */
+      const presenter = new Presenter();
+      const view = new View(presenter); /* View knows its presenter */
+      presenter.initialize(
+        model,
+        view
+      ); /* presenter now knows its model and view */
+    </script>
+  </body>
+</html>

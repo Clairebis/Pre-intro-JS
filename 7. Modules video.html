@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module Import / Export video</title>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script type="module">
+      import Person from "./personclass.js";
+      import { capitaliseWord, year } from "./library.js";
+      const teacher = new Person("Morten Bonderp", 55);
+      const outputDiv = document.getElementById("output");
+
+      outputDiv.insertAdjacentHTML(
+        "beforeend",
+        teacher.getName() + " " + teacher.getAge(),
+      );
+
+      outputDiv.insertAdjacentHTML(
+        "beforeend",
+        "<br>" + capitaliseWord(teacher.getName()),
+      );
+
+      outputDiv.insertAdjacentHTML("beforeend", "<br>" + year);
+    </script>
+  </body>
+</html>

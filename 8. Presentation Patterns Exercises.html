@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presentation pattern exercises</title>
+  </head>
+  <body>
+    <div id="app_container">
+      <button>Increase Count by 1</button>
+      <button>Decrease Count by 1</button>
+    </div>
+
+    <div id="count_display"></div>
+
+    <script type="model">
+      import Model from './8. model2.js';
+      import Presenter from './8. presenter2.js';
+      import View from './8. view2.js';
+
+
+      const model = new Model(0);
+      const presenter = new Presenter();
+      const view = new View(presenter);
+
+      presenter.initialize(model, view);
+    </script>
+  </body>
+
+  <!--
+    KNOWLEDGE
+    1. What are the main features and benefits of the MVP presentation pattern?
+    Seperation of Concerns - concerns of the app separated into 3 distinct components: Model, View, Presenter.
+    Testability - each component can be tested separately. It becomes easier to write unit tests for each component in isolation.
+    They improve maintainablilty and scalability of the application. The code is easier to understand and maintain.
+    Flexibility in UI design - the view can be changed without affecting the model and presenter (underlying logic). 
+    They help avoid duplication of code.
+    Each component is easier to modify, extend and reuse e.g. presenters can by reused across different Views, making if efficient when building similar inferfaces with varying appearances.
+    
+    2. Explain the role of each component (Model, View, and Presenter) in achieving these benefits.
+    Model: 
+        It is responsible for the data and business logic of the application. It is the data layer of the application. 
+        It contains the information to be presented to the user.
+        It obtains data from databases and other services using APIs, and passes it to the presenter.
+
+    View: 
+        It is responsible for the presentation of the data to the user. It is the presentation layer of the application.
+        It contains the UI elements of the application and handles the user's interactions with the application / UI.
+        It receives data from the presenter and displays it to the user. In web apps it's usually the HTML markup.
+        It sends user's interactions to the presenter.
+        It interacts with the DOM to display information and capture user input.
+
+    Presenter:
+        Controls the flow of information between the View and Model components.
+        It is responsible for the presentation logic of the application. 
+        It receives data from the model and processes it.
+        It receives user's interactions from the view and processes them - i.e. it responds to events triggered by the user. 
+        It updates the Model and View accordingly..
+        It sends data to the View to be displayed to the user.
+        It sends user's interactions to the Model to be processed.
+        It is the intermediary / middleman between the Model and the View.
+        It is the only component that knows about the other two components.
+
+
+--></html>

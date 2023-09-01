@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo about classes and objects</title>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script>
+      const outputDiv = document.getElementById("output");
+
+      // A book blueprint / factory
+
+      class book {
+        constructor(isbn, title, author) {
+          this.isbn = isbn;
+          this.title = title;
+          this.author = author;
+        }
+
+        setTitle(newTitle) {
+          if (typeof newTitle === "string") {
+            this.title = newTitle;
+          } else {
+            console.log("ERROR: The new title is not a string");
+          }
+        }
+
+        getAllAttributes() {
+          return `isbn: ${this.isbn} <br> Title: ${this.title} <br> Author: ${this.author} <br> ----------- <br>`;
+        }
+      }
+
+      // book1 is an object created based on the book class
+      const book1 = new book(
+        "353-343846",
+        "JavaScript for Nerds",
+        "Morten Bonderup",
+      );
+
+      const book2 = new book("798-4564565", "Return to earth", "Kim Valentine");
+
+      outputDiv.insertAdjacentHTML("beforeend", book1.getAllAttributes());
+      outputDiv.insertAdjacentHTML("beforeend", book2.getAllAttributes());
+
+      //change title
+      book1.setTitle("JavaScript for experts");
+      outputDiv.insertAdjacentHTML("beforeend", book1.getAllAttributes());
+
+      // -----------SINGLETON (can have methods too, but makes more sense to use classes there) -------------
+      // good for temporary info to process
+
+      const mycar = {
+        brand: "Suzuki",
+        model: "Swift",
+        color: "red",
+      };
+
+      outputDiv.insertAdjacentHTML("beforeend", mycar.brand);
+
+      // use classes to process a group of objects.
+    </script>
+  </body>
+</html>

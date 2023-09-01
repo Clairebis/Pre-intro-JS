@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classes and Objects Exercises</title>
+  </head>
+  <body>
+    <div id="output"></div>
+    <!--
+1. How will you describe a JavaScript class?
+A class is a template for creating objects. It can be described as a midwife birthing objects. 
+It defines the structure (attributes / properties) and behaviour (methods) its objects will have.
+
+2. How will you describe a JavaScript object?
+An obect is a data structure that stores and organises data in key-value pairs. It is an instance of a class.
+
+3. What is the difference between a class and an object?
+A class is a template that can be reused to create multiple objects. ´
+An object is a structure that contains data about a particular thing. The hold data and perfom actions (methods) defined by their class.
+Objects have unique values for their properties while still adhering to the structure defined by the class.
+Classes allow you to create consistent objects and allow code to be more organised.
+
+4. What is the purpose of a class constructor?
+A class constructor sets up how the class will be structured / oragnised. It needs to be set up when creating a new class.¨
+a. Initialization - It sets up the initial state of the object by assigning vaules to its properties.
+b. Automatic Invocation - When you make a new object using the "new" keyword, the constructor is automatically invoked.
+c. Parameters - Constructors accepts parameters that are used to pass initial values to the object's properties. 
+They're typically passed when creating a new object using the "new" keyword.
+
+5. How will you describe a Singleton?
+A Singleton is basically an object that's a single entity.. It can be used when users are interacting with our product, eg. typing in forms, selecting items, etc.
+It often only exists temporarily and disappears when it's processed. 
+It can be used when temporary processing of information is needed.   
+    -->
+
+    <script>
+      const outputDiv = document.getElementById("output");
+
+      class Cat {
+        constructor(idnumber, nickname, dob, breed) {
+          this.idnumber = idnumber;
+          this.nickname = nickname;
+          this.dob = dob;
+          this.breed = breed;
+        }
+
+        getAllAttributes() {
+          return `${this.idnumber} <br> ${this.nickname} <br> ${this.dob} <br> ${this.breed} <br> ----------- <br>`;
+        }
+
+        getNickname() {
+          return `${this.nickname}`;
+        }
+        setNickname(newNickname) {
+          if (typeof newNickname === "string") {
+            this.nickname = newNickname;
+          } else {
+            console.log("New nickname is not a string");
+          }
+        }
+      }
+
+      const cat1 = new Cat("123456789", "Kitty", "2012-12-12", "Siamese");
+      const cat2 = new Cat("987654321", "Itty", "2010-10-10.", "Maine Coon");
+      const cat3 = new Cat("456789123", "Bitty", "2008-08-08", "Sphynx");
+
+      outputDiv.insertAdjacentHTML("beforeend", cat1.getAllAttributes());
+      outputDiv.insertAdjacentHTML("beforeend", cat2.getAllAttributes());
+      outputDiv.insertAdjacentHTML("beforeend", cat3.getAllAttributes());
+
+      cat1.setNickname("Kitty-Kat");
+      outputDiv.insertAdjacentHTML("beforeend", cat1.getNickname());
+
+      console.log(cat1.getAllAttributes());
+      console.log(cat2.getNickname());
+    </script>
+  </body>
+</html>

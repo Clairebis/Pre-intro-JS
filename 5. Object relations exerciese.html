@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object Relations Exercises</title>
+  </head>
+  <body>
+    <!--
+        KNOWLEDGE
+1. How will you describe object association relation?
+Associated objects are looseley connected with each other and exist independently of each other. 
+The objects know about each other, and can be connected.
+E.g. students & supervisors.
+
+2. How will you describe object aggregation relation?
+One type of object (the whole) is made up of the other types of object (the parts), but the objects exist independently of each other.
+One object (the whole) has a major role / ownership of the other. If one is removed, the other still exists.
+E.g. students and courses.
+
+3. How will you describe object composition relation?
+A stronger form of aggregation.
+One type of object (the whole) is made up of the other types of object (the parts), but the parts depend on the whole.
+One object (the whole) has a major role / ownership of the other. If the whole object is deleted, the parts are also deleted.
+E.g. a person and their address
+
+4. What is the difference between object association, aggregation and composition relations?
+Association can model interactions between objects from different classes. There's no ownership implied by association. 
+The relationship between the objects is often temporary.
+Aggregation is a "has a" relationship, where one object contains or has other objects. One plays a major role and has ownership. 
+The objects exist independently of each other. The parts can be shared among mulitple wholes.
+E.g. a university object aggregates different department objects. The departments can exist outside of the universitey and can be shared among multiple universities.
+Composition is similar to aggregation, but the relationship is stronger and dependent. Parts are typically created and destroyed along with the whole.
+E.g. a car composed of an engine, wheels, and chassis objects. If the car is destroyed, the component parts are also destroyed.
+
+-->
+
+    <script>
+      /*1. Create a class called “Person” that has a name and an address. Create another class called
+            “Company” that has a name and an address. Create an association relation between objects
+            of the two classes.*/
+
+      class Person {
+        constructor(name, address) {
+          this.name = name;
+          this.address = address;
+          this.company = null;
+        }
+
+        getAllAttributes() {
+          const output =
+            this.company === null
+              ? `${this.name} ${this.address}`
+              : `${this.name} ${
+                  this.address
+                } ${this.company.getAllAttributes()}`;
+          return output;
+        }
+
+        setCompany(newCompany) {
+          if (newCompany instanceof Object) {
+            this.company = newCompany;
+          } else {
+            console.log("ERROR: Company is not an object");
+          }
+        }
+      }
+
+      class Company {
+        constructor(name, address) {
+          this.name = name;
+          this.address = address;
+        }
+
+        getAllAttributes() {
+          return `${this.name} ${this.address}`;
+        }
+      }
+
+      const person = new Person("Claire", "Vestergårds Alle");
+      const company = new Company("Twinkle", "Star Alle");
+      person.setCompany(company);
+      console.log(person.getAllAttributes());
+
+      /*2. Create a class called “Car” that has a make and a model. Create another class called
+            “Engine” that has a horsepower rating. Create an aggregation relation between objects of the
+            two classes.*/
+
+      class Car {
+        constructor(make, model) {
+          this.make = make;
+          this.model = model;
+          this.engines = [];
+        }
+
+        addEngineToCar(newEngine) {
+          if (newEngine instanceof Object) {
+            this.engines.push(newEngine);
+          } else {
+            console.log("ERROR: Engine is not an object.");
+          }
+        }
+
+        getAllAttributes() {
+          let output = `${this.make} ${this.model} `;
+          this.engines.map(
+            (engine) => (output += `${engine.getAllAttributes()}`),
+          );
+          return output;
+        }
+      }
+
+      class Engine {
+        constructor(horsepower_rating) {
+          this.horsepower_rating = horsepower_rating;
+        }
+
+        getAllAttributes() {
+          return `${this.horsepower_rating};`;
+        }
+      }
+
+      const car = new Car("Vauxhall", "Corsa");
+      const engine = new Engine(500);
+      car.addEngineToCar(engine);
+      console.log(car.getAllAttributes());
+
+      /*3. Create a class called “House” that has an address and a number of rooms. Create another
+            class called “Room” that has a type (e.g., bedroom, bathroom) and a size (e.g., square
+            footage). Create a composition relation between objects of the two classes.*/
+
+      class House {
+        constructor(address) {
+          this.address = address;
+          this.rooms = [];
+        }
+
+        addRoom(room_type, size) {
+          const newRoom = new Room(room_type, size);
+          this.rooms.push(newRoom);
+        }
+      }
+
+      class Room {
+        constructor(room_type, size) {
+          this.room_type = room_type;
+          this.size = size;
+        }
+      }
+
+      const myHouse = new House("87 Newburgh Drive");
+      myHouse.addRoom("Bedroom", 50);
+      myHouse.addRoom("Living Room", 150);
+
+      console.log(myHouse);
+    </script>
+  </body>
+</html>

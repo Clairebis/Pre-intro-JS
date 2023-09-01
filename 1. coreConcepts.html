@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Core Concepts</title>
+  </head>
+  <body>
+    <!-- 
+     1. Reserved words are words that have special meaning in a programming language, e.g. if, else, for, math, etc. 
+     2. Dot notation is a way of writing an object and assigning it properties or methods [object to access][dot][property or method] 
+     e.g. document.getElementById();
+     3. 3 common built in objects are;
+        i. Date - tell date and time
+        ii. Math - perfom mathematical functions
+        iii. Array - create a list - a collection of items under a single variable.
+    4. JS percives elements on a webpage as objects. E.g. a <div> is an object.
+    -->
+  </body>
+
+  <script>
+    //1.
+    //Declare a variable called "text" and assign it a string value.
+    const text = "My text";
+    //Use the "length" property of the String object to display the length of the string.
+    console.log(text.length);
+
+    //2.
+    //Declare a variable called "num" and assign it a number value.
+    const num = 3;
+    //Use the "toFixed()" method of the Number object to display the number with exactly 2 decimal places.
+    console.log(num.toFixed(2));
+
+    //3.
+    //Declare an array called "fruits" and initialize it with the following fruits: "apple", "banana", "orange".
+    const fruits = ["apple", "banana", "orange"];
+    console.log(fruits);
+
+    // Use push() to add a new fruit to the end of the array
+    fruits.push("pear");
+    console.log(fruits);
+
+    // Use pop() to remove the last fruit from the array
+    fruits.pop();
+    console.log(fruits);
+
+    // Use join() to convert the array into a string with comma-separated elements
+    const fruitsString = fruits.join(", ");
+    console.log(fruitsString);
+
+    //4.
+    //Use the "random()" method of the Math object to generate a random number between 0 and 1.
+    const randomNum = Math.random();
+    console.log(randomNum);
+
+    //Use the "floor()" method of the Math object along with the "random()" method to generate a random whole number between 50 and 100 (both included).
+    const randomNum2 = Math.floor(
+      Math.random() * (101 - 50) /*range of 51*/ + 50,
+    );
+    console.log(randomNum2);
+
+    /*(101 - 50) gives you a range of 51. This is because you want to generate numbers between 50 (inclusive) and 100 (inclusive), so you need a range of 51 values (100 - 50 + 1).
+
+Math.random() generates a random floating-point number between 0 (inclusive) and 1 (exclusive).
+
+Multiplying the result of Math.random() by 51 (the range) scales the random number to the range [0, 51).
+
+Adding 50 to the scaled random number shifts the range to [50, 101).
+
+Finally, Math.floor() is used to round down the number to the nearest whole integer, giving you a random integer between 50 and 100 (inclusive).
+
+So, the randomNum variable will contain a random whole number between 50 and 100 (both included).*/
+
+    //5.
+    //Declare a variable called "today" and assign it a new Date object.
+    const today = new Date();
+    console.log(today);
+
+    //Use the various methods of the Date object to display the current day, month, year, and time.
+    const currentDay = today.getDate();
+    console.log(currentDay);
+
+    const currentMonth = today.getMonth();
+    console.log(currentMonth + 1); //months start at 0, so adding one so they start from 1 for January
+
+    const currentYear = today.getFullYear();
+    console.log(currentYear);
+
+    const currentTime = today.toLocaleTimeString();
+    console.log(currentTime);
+  </script>
+</html>

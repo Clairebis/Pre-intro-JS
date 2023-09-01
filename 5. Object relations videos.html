@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object Relations Videos</title>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script>
+      //----------- Association ------------ Objects exist independently but are related
+
+      class Student {
+        constructor(id, name) {
+          this.id = id;
+          this.name = name;
+          this.supervisor = null; // This prepares for association relation
+        }
+
+        getAllAttributes() {
+          const output =
+            this.supervisor === null
+              ? `${this.id} ${this.name}`
+              : `${this.id} ${
+                  this.name
+                } Supervisor ${this.supervisor.getAllAttributes()}`;
+          return output;
+        }
+
+        setStudentSupervisor(newSupervisor) {
+          if (newSupervisor instanceof Object) {
+            this.supervisor = newSupervisor;
+          } else {
+            console.log("Error: The supervisor is not an object");
+          }
+        }
+      }
+
+      class Supervisor {
+        constructor(id, name) {
+          this.id = id;
+          this.name = name;
+        }
+
+        getAllAttributes() {
+          return `${this.id} ${this.name}`;
+        }
+      }
+
+      const supervisor = new Supervisor(1, "Connie Counselor");
+      const student = new Student(1, "Sofia Student");
+
+      student.setStudentSupervisor(supervisor);
+
+      const output = document.getElementById("output");
+
+      output.textContent = student.getAllAttributes();
+
+      // ------------- Aggregation ------------ One object has a major role (course here - inventory of all students), can exist without each other
+
+      class Course {
+        constructor(id, course_name) {
+          this.id = id;
+          this.course_name = course_name;
+          this.students = []; // Prepares for aggregation - each student becomes an object on a list within the course object
+        }
+
+        addStudentToCourse(newStudent) {
+          if (newStudent instanceof Object) {
+            this.students.push(newStudent);
+          }
+        }
+
+        getAllAttributes() {
+          let output = `${this.id} ${this.course_name}`;
+          this.students.map(
+            (student) => (output += `${student.getAllAttributes()}`),
+          );
+          return output;
+        }
+      }
+
+      const course = new Course(1, "3rd semester");
+      const student1 = new Student(1, "John Clever");
+      const student2 = new Student(1, "Sofia Wise");
+
+      course.addStudentToCourse(student1);
+      course.addStudentToCourse(student2);
+
+      console.log(course.getAllAttributes());
+
+      output.textContent = course.getAllAttributes();
+    </script>
+  </body>
+</html>

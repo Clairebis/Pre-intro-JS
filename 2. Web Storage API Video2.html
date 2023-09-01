@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Web Storage API Video 2</title>
+  </head>
+  <body>
+    <form>
+      <label>Favourite color: <input type="color" id="favcolor" /></label>
+      <button type="button" id="save">Save</button>
+      <div id="output"></div>
+    </form>
+
+    <script>
+      const outputDiv = document.getElementById("output");
+      const saveButton = document.getElementById("save");
+      const favcolorInput = document.getElementById("favcolor");
+
+      window.onload = function () {
+        const savedColor = localStorage.getItem("favcolor");
+        if (savedColor) {
+          favcolorInput.value = savedColor;
+        }
+      };
+
+      saveButton.onclick = function () {
+        localStorage.setItem("favcolor", favcolorInput.value);
+        outputDiv.textContent = "Color is saved!";
+      };
+    </script>
+  </body>
+</html>

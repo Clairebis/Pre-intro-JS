@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Storage API Exerciese</title>
+    <style>
+      .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 33%;
+        gap: 10px;
+
+        .button {
+          width: 20%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <form class="form">
+      <textarea id="tasks" rows="10" , cols="50"></textarea>
+      <button type="button" class="button" id="save">Save</button>
+      <button type="button" class="button" id="clear">Clear Tasks</button>
+      <div id="output"></div>
+    </form>
+    <script>
+      // Knowledge
+      // 1. What is the Web Storage API about?
+      // The Web Storage API allows a brower to store data on the client side. It deals with key-value pairs of data in a user's web browser.
+      // The brower has 2 types of storage - localStorage and sessionStorage.
+
+      // 2. What is the main difference between localStorage and sessionStorage?
+      // localStorage stores data more permanently - across page views, brower and computer restarts. Anyone using the device can access it.
+      // There's no expiry time. The data is associated with a specific domain.
+      // sessionStorage only stores data across page views. It's only availble while the current session is active, so is better for sensitive info.
+      // sessionStorage data is deleted when the session terminates, e.g. when the user closes the browser or tab.s
+
+      // 3. How do you set and retrieve data using the Web Storage API?
+      // Set data using setItem
+      // Retrieve data using getItem
+
+      // 4. How can complex data structures, like an array, be stored and retrieved? Give an example.
+      // The JSON object has to be used here:
+      // Store the data using stringify() method
+      // Retrieve the data using parse() method
+
+      //e.g.
+
+      // const members = ["Claire", "Mick", "Conan", "Mila"];
+      // localStorage.setItem("members", JSON.stringify(members));
+      // const membersList = JSON.parse(localStorage.getItem("members"));
+
+      // 5. What are some common use cases for the Web Storage API?
+      // a. Caching - storing data locally to reduce the need for repeated server requests.
+      // This can give faster loading times and a better user experience.
+      // b. Storing User Preferences - Storing user settings / preferences across sessions
+      // c. Offline Support - creating offline capable web apps by storing necesssary data for use when the user is offline.
+      // d. Temporary Data Storage - Temporarily storing data during a user's session.
+
+      // NB It's meant for small amounts of data.
+
+      //SKILLS
+
+      // 1. Create a simple form with a textarea. In the textarea the user types in her/his to-do list. Your
+      // application must store the user’s tasks with localStorage so that they persist even after the
+      // user closes the browser. The textarea must be pre-filled the next time the user visits the page.
+
+      const outputDiv = document.getElementById("output");
+      const saveButton = document.getElementById("save");
+      const clearButton = document.getElementById("clear");
+      const tasksInput = document.getElementById("tasks");
+
+      window.onload = function () {
+        const savedTasks = localStorage.getItem("tasks");
+        if (savedTasks) {
+          tasksInput.value = savedTasks;
+        }
+      };
+
+      saveButton.onclick = function () {
+        localStorage.setItem("tasks", tasksInput.value);
+        outputDiv.textContent = "Tasks are saved!";
+      };
+
+      clearButton.onclick = function () {
+        localStorage.removeItem("tasks");
+        tasksInput.value = "";
+      };
+
+      // 2. Challenge (optional)
+      // Create an online calculator that stores previous calculations in local storage so that users can see
+      // their previous calculations even after closing the browser.
+    </script>
+  </body>
+</html>

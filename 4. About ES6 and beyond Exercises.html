@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES6 and beyond Exercises</title>
+  </head>
+  <body>
+    <div id="output"></div>
+    <!--
+Knowledge:
+1. What is the spread operator and how can it be used? Give examples.
+The spread operator is shown by three dots ... It converts an array to a list of items.
+
+You can use it to 
+a. copy an array
+const originalArray = [1, 2, 3];
+const copiedArray = [...originalArray];
+console.log(copiedArray); // Output: [1, 2, 3]
+
+b. combine arrays
+const array1 = [1, 2, 3];
+const array2 = [4, 5, 6];
+const combinedArray = [...array1, ...array2];
+console.log(combinedArray); // Output: [1, 2, 3, 4, 5, 6]
+
+c. pass array elements as arguments
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+const numbers = [1, 2, 3];
+const result = sum(...numbers);
+console.log(result); // Output: 6
+
+d. create object copies and merging
+const originalObj = { foo: 1, bar: 2 };
+const copiedObj = { ...originalObj };
+console.log(copiedObj); // Output: { foo: 1, bar: 2 }
+
+const newObj = { ...originalObj, baz: 3 };
+console.log(newObj); // Output: { foo: 1, bar: 2, baz: 3 }
+
+e. convert node lists to arrays
+const nodeList = document.querySelectorAll('p');
+const arrayFromNodeList = [...nodeList];
+
+f. create arrays with additional elements
+const newArray = [...originalArray, 4, 5, 6];
+console.log(newArray); // Output: [1, 2, 3, 4, 5, 6]
+
+2. What is the ternary operator and how can it be used? Give one example.
+A ternary operator is a new way of writing an if/else statement. It accepts 3 operands:
+a condition followed by a ? an experssion if the condition is true followed by : an experssion if the condition is false
+
+It's a shorter and more concise way to write a conditional statement.
+It's useful when you want to assign a value based on a simple condition.
+
+An example is:
+const age = 25;
+const isAdult = age >= 18 ? "Yes" : "No";
+
+console.log(isAdult); // Output: "Yes"
+
+3. Make a short description of the Map, filter, findIndex and find array methods. Give a
+comprehensive example.
+
+a. map() Transforms an array into a new format, e.g. HTML, or another transformation
+const numbers = [1, 2, 3, 4];
+const doubledNumbers = numbers.map(num => num * 2);
+console.log(doubledNumbers); // Output: [2, 4, 6, 8]
+
+b. filter() Returns an array with all objects that match the criteria
+const numbers = [1, 2, 3, 4, 5, 6];
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers); // Output: [2, 4, 6]
+
+c. findIndex() Returns the index of the first element that matches the criteria. It returns -1 if no element matches
+const fruits = ['apple', 'banana', 'orange', 'grape'];
+const indexOfOrange = fruits.findIndex(fruit => fruit === 'orange');
+console.log(indexOfOrange); // Output: 2
+
+d. find() Returns the first element that matches the criteria. It returns 'undefined' if no element matches
+const persons = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Carol', age: 22 }
+];
+const personAbove30 = persons.find(person => person.age > 30);
+console.log(personAbove30); // Output: { name: 'Bob', age: 30 }
+
+    -->
+
+    <script>
+      const outputDiv = document.getElementById("output");
+
+      /*1. Write an arrow function called "squaredNumber" that takes in a number as a parameter and
+       returns the square of that number.*/
+
+      const squaredNumber = (x) => x * x;
+      console.log(squaredNumber(5));
+
+      /*2. Write a ternary statement to check if an “age” variable is greater than or equal to 18. If it is,
+       assign the value "Adult" to a variable called “status”, otherwise assign the value "Minor".*/
+      const age = 16;
+      const status = age >= 18 ? "Adult" : "Minor";
+      console.log(status);
+
+      /* 3. . Exercise in using array methods:
+
+       You are given an array of employee objects representing each employee’s details in a
+       company. Each employee object consists of the following properties:
+       - name: string
+       - age: number
+       - position: string
+       - salary: number
+
+       a) Create an array of employee objects with the following data:
+
+       const employees = [
+       { name: 'John Doe', age: 30, position: 'Manager', salary: 5000 },
+       { name: 'Jane Smith', age: 25, position: 'Developer', salary: 4000 },
+       { name: 'Tom Johnson', age: 35, position: 'Designer', salary: 4500 },
+       { name: 'Sarah Davis', age: 28, position: 'Developer', salary: 4200 },
+       { name: 'Michael Brown', age: 32, position: 'Developer', salary: 3800 },
+       { name: 'Emily Wilson', age: 27, position: 'Designer', salary: 4200 }
+       ];
+
+       b) Use the appropriate array method(s) to solve the following tasks:
+
+       I. Find and show the details of the employee with the highest salary.
+
+
+       II. Filter and show the names of all developers.
+
+       III. Filter the employees who are developers and have a salary greater than or equal to
+       4000, then show their names.
+
+       IV. Use the map() method to capitalize each employees position value.*/
+
+      const employees = [
+        { name: "John Doe", age: 30, position: "Manager", salary: 5000 },
+        { name: "Jane Smith", age: 25, position: "Developer", salary: 4000 },
+        { name: "Tom Johnson", age: 35, position: "Designer", salary: 4500 },
+        { name: "Sarah Davis", age: 28, position: "Developer", salary: 4200 },
+        { name: "Michael Brown", age: 32, position: "Developer", salary: 3800 },
+        { name: "Emily Wilson", age: 27, position: "Designer", salary: 4200 },
+      ];
+
+      // I. Find and show the details of the employee with the highest salary.
+      const employeeWithHighestSalary = employees.reduce(
+        (highestPaid, currentEmployee) => {
+          return currentEmployee.salary > highestPaid.salary
+            ? currentEmployee
+            : highestPaid;
+        },
+        employees[0],
+      ); // Initialize with the first employee
+
+      console.log(employeeWithHighestSalary);
+      /*In this code, the reduce method is used to find the employee with the highest salary. 
+      The initial value is set as the first employee in the array (employees[0]). 
+      For each subsequent employee, the callback function compares their salary with the current highest paid employee's salary. 
+      If the current employee has a higher salary, they become the new highestPaid employee.
+      After the iteration is complete, the resulting employeeWithHighestSalary will contain the employee object with the highest salary.*/
+
+      /*ABOUT THE REDUCE METHOD
+The reduce method is a powerful array method in JavaScript.
+It allows you to iteratively reduce an array of values into a single value. 
+It takes a callback function as its main argument and applies that function to each element of the array, accumulating a single result. 
+The callback function takes four arguments:
+
+Accumulator (acc): The value that accumulates over each iteration.
+Current Value (currentValue): The current element being processed in the array.
+Current Index (currentIndex): The index of the current element being processed.
+Array (array): The original array on which reduce was called.
+
+The general syntax of the reduce method is as follows:
+
+array.reduce(callback, initialValue);
+
+Here's a simple example of using the reduce method to calculate the sum of an array of numbers:
+
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = numbers.reduce((acc, currentValue) => {
+  return acc + currentValue;
+}, 0);
+
+console.log(sum); // Output: 15
+In this example, the accumulator starts with an initial value of 0.
+The callback function adds the current value to the accumulator in each iteration. 
+The final value of the accumulator (sum) is the sum of all the numbers in the array.
+
+The reduce method is quite versatile and can be used for a wide range of operations, 
+including calculating totals, finding maximum or minimum values, transforming data, and more. 
+It's a powerful tool for performing complex operations on arrays in a concise and efficient manner.*/
+
+      // II. Filter and show the names of all developers.
+      const developers = employees.filter(
+        (element, index, array) => element.position === "Developer",
+      );
+      console.log(developers);
+
+      //III. Filter the employees who are developers and have a salary greater than or equal to 4000, then show their names.
+      const highSalaryDevs = employees.filter(
+        (element, index, array) =>
+          element.position === "Developer" && element.salary >= 4000,
+      );
+      console.log(highSalaryDevs);
+
+      for (highDev of highSalaryDevs) {
+        const nameDiv = document.createElement("div");
+        nameDiv.textContent = highDev.name;
+        outputDiv.appendChild(nameDiv);
+      }
+
+      // IV. Use the map() method to capitalize each employees position value.
+      const capPosition = employees.map((employee) => ({
+        ...employee,
+        position: employee.position.toUpperCase(),
+      }));
+      console.log(capPosition);
+    </script>
+  </body>
+</html>

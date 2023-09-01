@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES6+ and beyond</title>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script>
+      const outputDiv = document.getElementById("output");
+      /*
+            //  1. Spread operator ... can be used for array manipulation
+            const oldMembers = ["Oliver", "Maria", "Suzanne", "Jacob"];
+            const newMember = "Caroline";
+            const memberList = [newMember, ...oldMembers];
+            outputDiv.textContent = memberList;
+
+            // Array destructuring = splitting something up
+            [firstMember, secondMember, ...rest] = memberList;
+            outputDiv.textContent =
+              "first: " +
+              firstMember +
+              " second " +
+              secondMember +
+              " the rest " +
+              rest;
+
+            //  2. Ternary operator
+            let text = "";
+            let newUser = false;
+
+            //the old way
+            if (newUser) {
+              text = "Welcome, new user";
+            } else {
+              text = "Hi, experienced user";
+            }
+
+            outputDiv.textContent = text;
+
+            //newer way - shorter!
+            const text2 = newUser ? "Welcome new user" : "Hi, fully experienced user";
+            outputDiv.textContent = text2;
+
+            // 3. Arrow functions
+            function total(a, b) {
+              return a + b;
+            }
+
+            outputDiv.textContent = total(10, 5);
+
+            //another way with arrows
+
+            const arrowTotal = (a, b) => a + b;
+
+            outputDiv.textContent = arrowTotal(20, 15);*/
+
+      //  4. Newer array methods: map, iflter, find, findIndex
+
+      const members = [
+        {
+          name: "Maria",
+          age: 29,
+        },
+        {
+          name: "Steven",
+          age: 24,
+        },
+      ];
+
+      //find() - first person that matches the criteria
+      const member = members.find((element, index, array) => element.age > 20);
+      outputDiv.textContent = member.name;
+
+      //filter() - all matching
+      const member2 = members.filter(
+        (element, index, array) => element.age > 20,
+      );
+      outputDiv.textContent = member2[0].name + ", " + member2[1].name;
+      // NB would usually make a loop here for this rather than writing it out like this! ^^
+
+      //findIndex() - index of matching - (can be useful for finding something and deleting it)
+      const index = members.findIndex(
+        (element, index, array) => element.name === "Steven",
+      );
+      outputDiv.textContent = index;
+
+      //map() - transform an array to another form, e.g. HTML
+      const memberListHTML = members
+        .map(
+          (member) => `
+    <section>
+      <h3>Name: ${member.name}</h3>
+      <p>Age: ${member.age}</p>
+      </section>`,
+        )
+        .join(""); // Removes comma as a separator
+      outputDiv.innerHTML = memberListHTML;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebStorage API demo 1</title>
+  </head>
+  <body>
+    <!--
+    Web storage API includes 2 objects:
+    1. sessionStorage - session scoped storage (stored until user closes the browser)
+    2. localStorage - more permanent storage
+    They have similar methods attached
+    a. setItem(key, value)
+    b. getItem(key)
+-->
+
+    <script>
+      //Saving information in browser storage
+      sessionStorage.setItem("price", 1395.75);
+      const sessionS = sessionStorage.getItem("price");
+
+      localStorage.setItem("animal", "mouse");
+      const localS = localStorage.getItem("animal");
+
+      console.log(sessionS);
+      console.log(localS);
+
+      // Storing ARRAYS and other complex data types with Web Storage API
+      const membersList = ["Jasmine", "John", "Janet"];
+
+      // Using JSON object. It has 2 methods
+      // 1. stringify - transform JavaScript valies into JSON data format
+      // 2. parse - transform JSON data format into JavaScript values
+
+      sessionStorage.setItem("members", JSON.stringify(membersList));
+
+      const storedMembers = JSON.parse(sessionStorage.getItem("members"));
+
+      console.log(storedMembers);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object relation - composition</title>
+  </head>
+  <body>
+    <div id="output"></div>
+
+    <script>
+      // ------ Composition ---------- One object completely depends on another object. Deleting Mary also deletes her address.
+
+      class Person {
+        constructor(id, name, road, zipcode, city, country) {
+          this.id = id;
+          this.name = name;
+          this.address = {
+            road: road,
+            zip: zipcode,
+            city: city,
+            country: country,
+          };
+        }
+        getAllAttributes() {
+          return `${this.id} ${this.name} ${this.address.road} ${this.address.zip} ${this.address.city} ${this.address.country}`;
+        }
+      }
+
+      const mary = new Person(
+        1,
+        "Mary Hilfiger",
+        "Ringvej Syd 104",
+        8260,
+        "Viby J",
+        "Denmark",
+      );
+      const outputDiv = document.getElementById("output");
+      outputDiv.textContent = mary.getAllAttributes();
+    </script>
+  </body>
+</html>

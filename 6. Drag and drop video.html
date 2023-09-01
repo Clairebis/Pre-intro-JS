@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag & drop video</title>
+
+    <style>
+      .box {
+        width: 220px;
+        height: 220px;
+        border: 1px solid black;
+        padding: 20px;
+      }
+
+      .img {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="box"></div>
+    <img src="circle.png" alt="circle" id="image" />
+    <script>
+      const box = document.getElementById("box");
+      const image = document.getElementById("image");
+
+      //Turn the box into a drop target
+      box.ondragover = function (event) {
+        event.preventDefault();
+      };
+
+      //When user starts dragging the element, the ID of the image is attached to it as "data".
+      //attach additional info to the element being dragged. Here we set it to the element ID.
+      image.ondragstart = function (event) {
+        event.dataTransfer.setData("text", event.target.id);
+      };
+
+      //When the image is dropped, it's ID is read as data, and the image element is added to the drop target element as a child element.
+      box.ondrop = function (event) {
+        event.preventDefault();
+        const element = event.dataTransfer.getData("text");
+        event.target.appendChild(document.getElementById(element));
+      };
+    </script>
+  </body>
+</html>
