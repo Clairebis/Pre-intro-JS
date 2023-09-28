@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Delegation Exercises</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li><button id="Claire">Claire</button>Claire</li>
+      <li><button id="Mick">Mick</button>Mick</li>
+      <li><button id="Conan">Conan</button>Conan</li>
+      <li><button id="Mila">Mila</button>Mila</li>
+    </ul>
+    <script>
+      const list = document.getElementById("list");
+
+      list.onclick = function () {
+        event.target.parentNode.remove();
+      };
+
+      /* KNOWLEDGE
+    1. What are the benefits of using event delegation over attaching event listeners to individual elements?
+        Event delegation means that the event is attached to a parent element instead of the child element. 
+        The benefit is that you don't have to add event listeners to every child element. 
+        This takes up less memory and improves performance.
+
+    2. Explain the concept of event bubbling and how it relates to event delegation.
+        Event bubbling means that when an event occurs on an element, it first runs the handlers on it, 
+        then on its parent, then all the way up on other ancestors. 
+        Event bubbling is the foundation of event delegation.
+
+    3. How can you implement event delegation in JavaScript? Provide an example code snippet.
+        You can implement event delegation in JavaScript by attaching an event listener to a parent element. 
+        The event listener will then listen for events that happen on its children. 
+  
+        An example code snippet is:
+        
+        const page = document.getElementById("page");
+
+        page.onclick = function (){
+            switch (event.target.id) {
+                case "wired":
+                location.href = "https://www.wired.com/";
+                break;
+                case "pcmag":
+                location.href = "https://uk.pcmag.com/";
+                break;
+                case "computerworld":
+                location.href = "https://www.computerworld.com/";
+                break;
+            }
+            };
+        }
+
+        NB - html would include a body with the id "page", and 3 buttons with ids of wired, pcmag and computerworld.
+    */
+    </script>
+  </body>
+</html>

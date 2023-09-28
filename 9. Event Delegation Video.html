@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Delegation</title>
+  </head>
+  <body id="page">
+    <button id="wired" type="button">Go to wired</button>
+    <button id="pcmag" type="button">Go to pcmag</button>
+    <button id="computerworld" type="button">Go to computer world</button>
+
+    <script>
+      /* traditional way
+      const wired = document.getElementById("wired");
+      wired.onclick = function () {
+        location.href = "https://www.wired.com/";
+      };
+
+      const pcmag = document.getElementById("pcmag");
+      pcmag.onclick = function () {
+        location.href = "https://uk.pcmag.com/";
+      };
+
+      const computerworld = document.getElementById("computerworld");
+      computerworld.onclick = function () {
+        location.href = "https://www.computerworld.com/";
+      };*/
+
+      // event delegation
+      const page = document.getElementById("page");
+
+      page.onclick = function () {
+        /*console.log(event.target.type);*/ //what kind of element has been clicked on
+        switch (event.target.id) {
+          case "wired":
+            location.href = "https://www.wired.com/";
+            break;
+          case "pcmag":
+            location.href = "https://uk.pcmag.com/";
+            break;
+          case "computerworld":
+            location.href = "https://www.computerworld.com/";
+            break;
+        }
+      };
+    </script>
+  </body>
+</html>
