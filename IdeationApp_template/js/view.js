@@ -1,25 +1,57 @@
-// The View handles the user's interaction 
-// with the UI and is responsible for the  
-// display of data/information. 
+// The View handles the user's interaction
+// with the UI and is responsible for the
+// display of data/information.
 
 export default class View {
   constructor(presenter) {
     const self = this;
     self.presenter = presenter;
 
+    const header = document.getElementById("header");
+    const main = document.getElementById("main");
+    const color = document.getElementById("colorselector");
+
     // HTML header element ONCLICK event delegation
+    header.onclick = function (event) {
+      switch (event.target.id) {
+        case "newpostit":
+          self.presenter.createPostit(color.value);
+          break;
+      }
+    };
 
     // HTML main element ONKEYUP event delegation
- 
+
     // HTML main element ONCLICK event delegation
-   
+
     // HTML main element DRAGOVER (drop target)
 
-    // HTML main element ONDROP 
-   
+    // HTML main element ONDROP
   } // End of constructor
 
   // ------- Methods that serves the view ---------- //
-  
-  
+
+  showPostit(postitObject) {
+    const postitHTML = `
+    <section class="postitsection" draggable="true" id="${postitObject.pid}">
+      <div class="textareatop"><span class="postitarrow">&nbsp;&nwarr;</span>
+        <button type="button" data-id="${postitObject.pid}" class="postitdeletebtn">X</button>
+      </div>
+      <textarea class="textarea" data-id="${postitObject.pid}" id="${postitObject.tid}">${postitObject.content}</textarea>
+    </section>
+    `;
+
+    const main = document.getElementById("main");
+    main.insertAdjacentHTML("beforeend", postitHTML);
+
+    document.getElementById(postitObject.pid).style.position = "absolute";
+    document.getElementById(postitObject.pid).style.top =
+      postitObject.posY + "px";
+    document.getElementById(postitObject.pid).style.left =
+      postitObject.posX + "px";
+    document.getElementById(postitObject.pid).style.backgroundColor =
+      postitObject.color;
+    document.getElementById(postitObject.tid).style.backgroundColor =
+      postitObject.color;
+  }
 } // End of class
