@@ -24,7 +24,17 @@ export default class View {
       }
     };
 
-    // HTML main element ONKEYUP event delegation
+    // HTML main element ONKEYUP event delegation (press something on keyboard, release it - key goes up = user finished typing something
+    main.onkeyup = function (event) {
+      const htmlTagType = event.target.type;
+      if (htmlTagType === "textarea") {
+        const textareaId = event.target.id;
+        const postitId = document.getElementById(textareaId).dataset.id;
+        const currentTextarea = document.getElementById(textareaId);
+        self.presenter.updatePostitContent(postitId, currentTextarea.value);
+        self.showMessage("");
+      }
+    };
 
     // HTML main element ONCLICK event delegation
     main.onclick = function (event) {

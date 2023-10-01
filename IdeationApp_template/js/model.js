@@ -43,6 +43,17 @@ export default class Model {
     }
   }
 
+  updatePostitContent(postitId, newContent) {
+    if (typeof postitId === "string" && typeof newContent === "string") {
+      const index = this.postitList.findIndex(
+        (element, index, array) => element.pid === postitId
+      );
+      this.postitList[index].content = newContent;
+    } else {
+      console.log("ERROR: postitId and/or newContent is not a string");
+    }
+  }
+
   deletePostit(postitId) {
     if (typeof postitId === "string") {
       const index = this.postitList.findIndex(

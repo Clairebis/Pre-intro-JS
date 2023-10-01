@@ -56,4 +56,8 @@ export default class Presenter {
   updatePostitPosition(postitId, newPosX, newPosY) {
     this.model.updatePostitPosition(postitId, newPosX, newPosY);
   }
+
+  updatePostitContent(postitId, newContent) {
+    this.model.updatePostitContent(postitId, newContent);
+  }
 }
