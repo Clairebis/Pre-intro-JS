@@ -20,4 +20,22 @@ export default class Model {
       console.log("ERROR: NewPostit is not an object");
     }
   }
+
+  updatePostitPosition(postitId, newPosX, newPosY) {
+    if (
+      typeof postitId === "string" &&
+      typeof newPosX === "number" &&
+      typeof newPosY === "number"
+    ) {
+      const index = this.postitList.findIndex(
+        (element, index, array) => element.pid === postitId
+      );
+      this.postitList[index].posX = newPosX;
+      this.postitList[index].posY = newPosY;
+    } else {
+      console.log(
+        "ERROR: postitId, newPosX and/or newPosY does not have the correct datatype(s)"
+      );
+    }
+  }
 }

@@ -28,4 +28,8 @@ export default class Presenter {
     this.view.showPostit(postitObject);
     this.postitCounter++;
   }
+
+  updatePostitPosition(postitId, newPosX, newPosY) {
+    this.model.updatePostitPosition(postitId, newPosX, newPosY);
+  }
 }

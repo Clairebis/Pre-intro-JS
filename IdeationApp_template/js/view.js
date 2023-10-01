@@ -25,8 +25,23 @@ export default class View {
     // HTML main element ONCLICK event delegation
 
     // HTML main element DRAGOVER (drop target)
+    main.ondragover = function (event) {
+      event.preventDefault();
+    };
 
     // HTML main element ONDROP
+    main.ondrop = function (event) {
+      event.preventDefault();
+      const postitId = event.dataTransfer.getData("text");
+      document.getElementById(postitId).position = "absolute";
+      document.getElementById(postitId).style.top = event.clientY + "px";
+      document.getElementById(postitId).style.left = event.clientX + "px";
+      self.presenter.updatePostitPosition(
+        postitId,
+        event.clientX,
+        event.clientY
+      );
+    };
   } // End of constructor
 
   // ------- Methods that serves the view ---------- //
@@ -43,6 +58,11 @@ export default class View {
 
     const main = document.getElementById("main");
     main.insertAdjacentHTML("beforeend", postitHTML);
+
+    const postitElement = document.getElementById(postitObject.pid);
+    postitElement.ondragstart = function (event) {
+      event.dataTransfer.setData("text", event.target.id);
+    };
 
     document.getElementById(postitObject.pid).style.position = "absolute";
     document.getElementById(postitObject.pid).style.top =
