@@ -17,6 +17,10 @@ export default class View {
         case "newpostit":
           self.presenter.createPostit(color.value);
           break;
+
+        case "save":
+          self.presenter.saveToDisk();
+          break;
       }
     };
 

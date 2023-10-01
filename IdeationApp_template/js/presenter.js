@@ -13,6 +13,26 @@ export default class Presenter {
 
   // ------- Methods that serves the presenter ---------- //
 
+  saveToDisk() {
+    let dialogAnswer = true;
+    const dataToSave = JSON.stringify(
+      this.model.getPostitList()
+    ); /*want to save all postits*/
+
+    if (localStorage.getItem("postits") !== null) {
+      dialogAnswer = this.view.showConfirmDialog(
+        "Content exists on disk. Overwrite it?"
+      );
+    }
+
+    if (dialogAnswer) {
+      localStorage.setItem("postits", dataToSave);
+      this.view.showMessage("Postit notes were saved successfully!");
+    } else {
+      this.view.showMessage("Nothing was saved!");
+    }
+  }
+
   createPostit(postitColor) {
     //Postit note singleton - group of related information about a postit
     const postitObject = {

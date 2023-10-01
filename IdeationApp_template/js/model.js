@@ -13,6 +13,10 @@ export default class Model {
 
   // ------- Methods that serves data/inventory list ---------- //
 
+  getPostitList() {
+    return this.postitList;
+  }
+
   addPostitToList(newPostit) {
     if (newPostit instanceof Object) {
       this.postitList.push(newPostit);
