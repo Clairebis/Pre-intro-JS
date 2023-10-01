@@ -29,6 +29,10 @@ export default class Presenter {
     this.postitCounter++;
   }
 
+  deletePostit(postitId) {
+    this.model.deletePostit(postitId);
+  }
+
   updatePostitPosition(postitId, newPosX, newPosY) {
     this.model.updatePostitPosition(postitId, newPosX, newPosY);
   }

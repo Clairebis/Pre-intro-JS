@@ -38,4 +38,15 @@ export default class Model {
       );
     }
   }
+
+  deletePostit(postitId) {
+    if (typeof postitId === "string") {
+      const index = this.postitList.findIndex(
+        (element, index, array) => element.pid === postitId
+      );
+      this.postitList.splice(index, 1);
+    } else {
+      console.log("ERROR: postitId is not a string");
+    }
+  }
 }

@@ -23,6 +23,19 @@ export default class View {
     // HTML main element ONKEYUP event delegation
 
     // HTML main element ONCLICK event delegation
+    main.onclick = function (event) {
+      const htmlTagType = event.target.type;
+      /*the only buttons on the canvas are the delete buttons*/
+      if (htmlTagType === "button") {
+        if (self.showConfirmDialog("Do you really wait to delete this?")) {
+          const postitId = event.target.dataset.id;
+          self.presenter.deletePostit(postitId); /*removes it visually*/
+          document.getElementById(postitId).ondragstart = null;
+          document.getElementById(postitId).remove();
+          self.showMessage("Postit deleted!");
+        }
+      }
+    };
 
     // HTML main element DRAGOVER (drop target)
     main.ondragover = function (event) {
@@ -45,6 +58,15 @@ export default class View {
   } // End of constructor
 
   // ------- Methods that serves the view ---------- //
+  showMessage(message) {
+    const messageField = document.getElementById("messagefield");
+    messageField.value = message;
+  }
+
+  showConfirmDialog(message) {
+    const dialogAnswer = confirm(message);
+    return dialogAnswer; /*can be true or false*/
+  }
 
   showPostit(postitObject) {
     const postitHTML = `
