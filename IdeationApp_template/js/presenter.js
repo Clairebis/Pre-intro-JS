@@ -14,61 +14,69 @@ export default class Presenter {
   // ------- Methods that serves the presenter ---------- //
 
   saveToDisk() {
-    let dialogAnswer = true;
-    const dataToSave = JSON.stringify(
-      this.model.getPostitList()
-    ); /*want to save all postits*/
+    if (this.model.getPostitListNumber() > 0) {
+      let dialogAnswer = true;
+      const dataToSave = JSON.stringify(
+        this.model.getPostitList()
+      ); /*want to save all postits*/
 
-    if (localStorage.getItem("postits") !== null) {
-      dialogAnswer = this.view.showConfirmDialog(
-        "Content exists on disk. Overwrite it?"
-      );
-    }
+      if (localStorage.getItem("postits") !== null) {
+        dialogAnswer = this.view.showConfirmDialog(
+          "Content exists on disk. Overwrite it?"
+        );
+      }
 
-    if (dialogAnswer) {
-      localStorage.setItem("postits", dataToSave);
-      this.view.showMessage("Postit notes were saved successfully!");
+      if (dialogAnswer) {
+        localStorage.setItem("postits", dataToSave);
+        this.view.showMessage("Postit notes were saved successfully!");
+      } else {
+        this.view.showMessage("Nothing was saved!");
+      }
     } else {
-      this.view.showMessage("Nothing was saved!");
+      this.view.showMessage("There is nothing to save!");
     }
   }
 
   loadFromDisk() {
-    let dialogAnswer = true;
+    if (localStorage.getItem("postits") !== null) {
+      let dialogAnswer = true;
 
-    if (this.model.getPostitListNumber() > 0) {
-      dialogAnswer = this.view.showConfirmDialog(
-        "Do you want to overwrite existing content?"
-      );
-    }
-
-    if (dialogAnswer) {
-      this.view.removeAllPostits(); /*from UI*/
-      this.model.resetPostitList();
-      this.postitCounter = 0;
-
-      const localPostitList = JSON.parse(localStorage.getItem("postits"));
-
-      for (const postit of localPostitList) {
-        // Debugging: Print out the loaded data
-        console.log("Loaded post-it data:", postit);
-        const postitObject = {
-          /*singleton*/
-          pid: "postit" + this.postitCounter,
-          tid: "textarea" + this.postitCounter,
-          posX: postit.posX,
-          posY: postit.posY,
-          color: postit.color,
-          content: postit.content,
-        };
-        this.model.addPostitToList(postitObject);
-        this.view.showPostit(postitObject);
-        this.postitCounter++;
+      if (this.model.getPostitListNumber() > 0) {
+        dialogAnswer = this.view.showConfirmDialog(
+          "Do you want to overwrite existing content?"
+        );
       }
 
-      this.view.showMessage("Postit notes loaded from disk.");
+      if (dialogAnswer) {
+        this.view.removeAllPostits(); /*from UI*/
+        this.model.resetPostitList();
+        this.postitCounter = 0;
+
+        const localPostitList = JSON.parse(localStorage.getItem("postits"));
+
+        for (const postit of localPostitList) {
+          // Debugging: Print out the loaded data
+          console.log("Loaded post-it data:", postit);
+          const postitObject = {
+            /*singleton*/
+            pid: "postit" + this.postitCounter,
+            tid: "textarea" + this.postitCounter,
+            posX: postit.posX,
+            posY: postit.posY,
+            color: postit.color,
+            content: postit.content,
+          };
+          this.model.addPostitToList(postitObject);
+          this.view.showPostit(postitObject);
+          this.postitCounter++;
+        }
+
+        this.view.showMessage("Postit notes loaded from disk.");
+      } else {
+        this.view.showMessage("Nothing was loaded!");
+      }
     } else {
-      this.view.showMessage("Nothing was loaded!");
+      this.view.showMessage("Nothing to load!");
     }
   }
 
