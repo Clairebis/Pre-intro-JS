@@ -13,6 +13,14 @@ export default class Model {
 
   // ------- Methods that serves data/inventory list ---------- //
 
+  getPostitListNumber() {
+    return this.postitList.length;
+  }
+
+  resetPostitList() {
+    this.postitList = [];
+  }
+
   getPostitList() {
     return this.postitList;
   }

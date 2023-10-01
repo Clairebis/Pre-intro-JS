@@ -21,6 +21,10 @@ export default class View {
         case "save":
           self.presenter.saveToDisk();
           break;
+
+        case "load":
+          self.presenter.loadFromDisk();
+          break;
       }
     };
 
@@ -109,5 +113,14 @@ export default class View {
       postitObject.color;
     document.getElementById(postitObject.tid).style.backgroundColor =
       postitObject.color;
+  }
+
+  removeAllPostits() {
+    const allPostits = document.querySelectorAll(".postitsection");
+
+    allPostits.forEach((postit) => {
+      document.getElementById(postit.id).ondragstart = null;
+      document.getElementById(postit.id).remove();
+    });
   }
 } // End of class

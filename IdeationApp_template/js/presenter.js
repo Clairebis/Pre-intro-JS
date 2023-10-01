@@ -33,6 +33,45 @@ export default class Presenter {
     }
   }
 
+  loadFromDisk() {
+    let dialogAnswer = true;
+
+    if (this.model.getPostitListNumber() > 0) {
+      dialogAnswer = this.view.showConfirmDialog(
+        "Do you want to overwrite existing content?"
+      );
+    }
+
+    if (dialogAnswer) {
+      this.view.removeAllPostits(); /*from UI*/
+      this.model.resetPostitList();
+      this.postitCounter = 0;
+
+      const localPostitList = JSON.parse(localStorage.getItem("postits"));
+
+      for (const postit of localPostitList) {
+        // Debugging: Print out the loaded data
+        console.log("Loaded post-it data:", postit);
+        const postitObject = {
+          /*singleton*/
+          pid: "postit" + this.postitCounter,
+          tid: "textarea" + this.postitCounter,
+          posX: postit.posX,
+          posY: postit.posY,
+          color: postit.color,
+          content: postit.content,
+        };
+        this.model.addPostitToList(postitObject);
+        this.view.showPostit(postitObject);
+        this.postitCounter++;
+      }
+
+      this.view.showMessage("Postit notes loaded from disk.");
+    } else {
+      this.view.showMessage("Nothing was loaded!");
+    }
+  }
+
   createPostit(postitColor) {
     //Postit note singleton - group of related information about a postit
     const postitObject = {
